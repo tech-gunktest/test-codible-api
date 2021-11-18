@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-process = require('child_process');
+aprocess = require('child_process');
 fs = require('fs');
 
 app.use(express.urlencoded({ extended: false }))// server to understand what app data is
@@ -23,7 +23,7 @@ app.post('/compile/python', (req, res)=>{
     const code = req.body.code
     const input = req.body.input
     const args = ['-c', code]
-    const py = process.spawn('python3', args)
+    const py = aprocess.spawn('python3', args)
 if(input){
     py.stdin.write(input)
     py.stdin.end()
@@ -42,7 +42,7 @@ app.post('/compile/node', (req, res)=>{
         if(err) throw err;
     })
 }
-    const node = process.spawn('node', [f])
+    const node = aprocess.spawn('node', [f])
     node.stdout.on('data', (data)=>{
         res.send(data.toString())
     })
@@ -57,7 +57,7 @@ app.post('/compile/cpp', (req, res)=>{
         if(err) throw err;
     })
 }
-    const gpp = process.spawn('g++', [f])
+    const gpp = aprocess.spawn('g++', [f])
     gpp.stdout.on('data', (data)=>{
         res.send(data.toString())
     })
