@@ -58,7 +58,7 @@ app.post('/compile/cpp', (req, res)=>{
         if(err) throw err;
     })
 }
-    const gpp = aprocess.spawn('g++ -o '+k+' '+f+' && ./'+k)
+    const gpp = aprocess.spawn('make '+k+' && ./'+k)
     gpp.stdout.on('data', (data)=>{
         res.send(data.toString())
     })
