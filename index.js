@@ -63,6 +63,6 @@ app.post('/compile/cpp', (req, res)=>{
     })
 })
 
-app.listen(4000, function(){
+app.listen(4000 || process.env.PORT, function(){
     console.log('listening on http://localhost:4000')
 })
