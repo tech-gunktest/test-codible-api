@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 aprocess = require('child_process');
 fs = require('fs');
+shell = require('shelljs')
 
 app.use(express.urlencoded({ extended: false }))// server to understand what app data is
 app.use(express.json())
@@ -58,9 +59,11 @@ app.post('/compile/cpp', (req, res)=>{
         if(err) throw err;
     })
 }
-    const gpp = aprocess.spawn('make '+k+' && ./'+k)
-    gpp.stdout.on('data', (data)=>{
-        res.send(data.toString())
-    })
+    shell.exec('make '+k+' && ./'+k, function(code, stdout, stderr) {
+  console.log('Exit code:', code);
+  res.send('Program output:', stdout);
+  console.log('Program stderr:', stderr);
+});
+    
 })
 app.listen(process.env.PORT || 3000);
