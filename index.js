@@ -49,7 +49,8 @@ app.post('/compile/node', (req, res)=>{
 });
 
 app.post('/compile/cpp', (req, res)=>{
-    var f= getRandomString(16)+'.cpp'
+    var k = getRandomString(16)
+    var f= k+'.cpp'
     if(fs.existsSync(f)){
         f= getRandomString(8)+'.cpp'
     }else{
@@ -57,7 +58,7 @@ app.post('/compile/cpp', (req, res)=>{
         if(err) throw err;
     })
 }
-    const gpp = aprocess.spawn('gcc', [f])
+    const gpp = aprocess.spawn('g++ -o '+k+' 'f+' && ./'+k)
     gpp.stdout.on('data', (data)=>{
         res.send(data.toString())
     })
